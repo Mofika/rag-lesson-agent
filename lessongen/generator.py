@@ -12,6 +12,9 @@ Write ONE standalone lesson in Markdown. Rules:
 - Cover every MUST_COVER item.
 - The "Check yourself" section must have at least 5 numbered questions, and EVERY question must end with a question mark (?).
 - Define each of these terms in the same sentence or the very next sentence where it FIRST appears, using a plain cue such as "means", "is called", or "is a": {jargon}.
+- Write "artificial intelligence (AI)" the first time you use the word AI. After that, you may write AI.
+- Do not use the phrase "model weights"; say "the model itself" instead. If you use any other technical word (for example "index"), explain it in plain words in the same sentence.
+- When you fix problems in a draft, change only what is needed and do not add new technical words.
 - 700-1200 words. Output only the lesson.
 {memory}"""
 

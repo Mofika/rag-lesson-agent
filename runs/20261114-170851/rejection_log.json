@@ -1,0 +1,112 @@
+[
+  {
+    "attempt": 1,
+    "passed": false,
+    "n_failed": 4,
+    "failed_checks": [
+      {
+        "id": "A1",
+        "title": "No factual errors",
+        "dimension": "accurate_grounded",
+        "type": "llm",
+        "reason": "The lesson falsely claims RAG retrains model weights, directly contradicting Grounding Fact F6.",
+        "evidence": "RAG permanently retrains the LLM's weights every time a user asks a question, so the model always becomes smarter.",
+        "fix": "Remove the claim that RAG retrains the model's weights and state clearly that weights are not changed.",
+        "flags": []
+      },
+      {
+        "id": "A2",
+        "title": "No invented specifics",
+        "dimension": "accurate_grounded",
+        "type": "llm",
+        "reason": "The lesson includes an invented statistic (99.9% accuracy) that is not in the Grounding Facts.",
+        "evidence": "RAG reaches 99.9% accuracy on all tasks.",
+        "fix": "Remove the 99.9% accuracy statistic and any non-grounded technical claims.",
+        "flags": []
+      },
+      {
+        "id": "L1",
+        "title": "Every technical term explained in plain words at first use",
+        "dimension": "clear_jargon",
+        "type": "llm",
+        "reason": "Multiple technical terms in the Extra note section are used without any plain-language explanation.",
+        "evidence": "latent manifolds via bi-encoder cosine-similarity ANN indexing with HNSW graphs",
+        "fix": "Remove or explain all advanced technical jargon introduced in the Extra note section.",
+        "flags": []
+      },
+      {
+        "id": "L2",
+        "title": "Language suits a non-native English reader",
+        "dimension": "beginner_language",
+        "type": "llm",
+        "reason": "The text uses overly formal vocabulary and idiomatic phrasing unsuitable for a non-English-medium 12th-grade graduate.",
+        "evidence": "ameliorate the aforementioned stochastic parroting",
+        "fix": "Remove formal academic terms like 'ameliorate' and 'aforementioned', and replace idioms like 'bold face' with simple words.",
+        "flags": []
+      }
+    ],
+    "changes_made_since_previous_attempt": [],
+    "diff_vs_previous": null
+  },
+  {
+    "attempt": 2,
+    "passed": false,
+    "n_failed": 1,
+    "failed_checks": [
+      {
+        "id": "L1",
+        "title": "Every technical term explained in plain words at first use",
+        "dimension": "clear_jargon",
+        "type": "llm",
+        "reason": "The technical term 'model weights' is introduced and used without any plain-language explanation.",
+        "evidence": "does not change the model weights.",
+        "fix": "Explain what 'model weights' means in simple words upon first use, or remove the term.",
+        "flags": []
+      }
+    ],
+    "changes_made_since_previous_attempt": [
+      "Removed the entire \"Extra note\" section containing ungrounded claims (weight retraining, 99.9% accuracy) and advanced technical jargon (\"latent manifolds\", \"HNSW graphs\", \"ameliorate\") to fix factual errors, remove ungrounded statistics, and ensure appropriate language for non-native readers.",
+      "Replaced the idiom \"bold face\" with \"bold voice\" to keep the text simple and clear for learners."
+    ],
+    "diff_vs_previous": {
+      "lines_added": 21,
+      "lines_removed": 24,
+      "similarity": 0.68
+    }
+  },
+  {
+    "attempt": 3,
+    "passed": false,
+    "n_failed": 2,
+    "failed_checks": [
+      {
+        "id": "L1",
+        "title": "Every technical term explained in plain words at first use",
+        "dimension": "clear_jargon",
+        "type": "llm",
+        "reason": "The technical term 'index' is introduced without any simple-word explanation.",
+        "evidence": "you update the documents and index.",
+        "fix": "Explain what an index is when it first appears, or change 'documents and index' to 'documents and stored chunks'.",
+        "flags": []
+      },
+      {
+        "id": "L2",
+        "title": "Language suits a non-native English reader",
+        "dimension": "beginner_language",
+        "type": "llm",
+        "reason": "The acronym 'AI' is used without being spelled out or explained first.",
+        "evidence": "solves the main limits of AI models.",
+        "fix": "Spell out and explain acronyms like AI (Artificial Intelligence) upon first use.",
+        "flags": []
+      }
+    ],
+    "changes_made_since_previous_attempt": [
+      "Added a plain-language definition for the technical term \"model weights\" right where it first appears in the \"What is RAG?\" section to fix the failed check."
+    ],
+    "diff_vs_previous": {
+      "lines_added": 1,
+      "lines_removed": 1,
+      "similarity": 0.99
+    }
+  }
+]

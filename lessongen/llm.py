@@ -48,27 +48,33 @@ class OpenAICompatLLM:
         self.api_key = api_key or "none"  # Ollama needs no key
 
     def complete(self, role, system, user, model, max_tokens=4000):
+        import os
         import urllib.error
         import urllib.request
-        body = json.dumps({
-            "model": model,
-            # "thinking" models count hidden reasoning inside this limit, so leave generous room
-            "max_tokens": max(max_tokens, 8000),
-            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-        }).encode()
-        req = urllib.request.Request(self.base_url + "/chat/completions", data=body, headers={
-            "Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"})
+        wait_unit = float(os.getenv("LLM_RETRY_WAIT", "15"))
+        fallback = os.getenv("FALLBACK_MODEL", "")
         last = None
-        for i in range(5):
+        for i in range(10):
+            # after 3 busy replies, switch to the fallback model (if one is set in .env)
+            use = fallback if (fallback and i >= 3) else model
+            body = json.dumps({
+                "model": use,
+                # "thinking" models count hidden reasoning inside this limit, so leave generous room
+                "max_tokens": max(max_tokens, 8000),
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+            }).encode()
+            req = urllib.request.Request(self.base_url + "/chat/completions", data=body, headers={
+                "Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"})
             try:
                 with urllib.request.urlopen(req, timeout=180) as r:
                     data = json.loads(r.read())
                 return data["choices"][0]["message"]["content"] or ""
             except urllib.error.HTTPError as e:
                 last = f"HTTP {e.code}: {e.read().decode()[:300]}"
-                if e.code in (429, 500, 502, 503, 504):  # free tiers rate-limit: wait and retry
-                    print(f"   (rate limit / server busy, waiting {15 * (i + 1)}s...)")
-                    time.sleep(15 * (i + 1))
+                if e.code in (429, 500, 502, 503, 504):  # free tiers rate-limit / overload: wait and retry
+                    wait = min(wait_unit * (i + 1), 60)
+                    print(f"   (server busy [{e.code}] on {use}, attempt {i + 1}/10, waiting {int(wait)}s...)")
+                    time.sleep(wait)
                     continue
                 break
             except Exception as e:
