@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "audience": "12th-grade graduate from India, limited English vocabulary, non-English-medium background, no AI background, wants to start an AI career",
+  "rules": "Every check is hard pass/fail. No partial credit. ALL checks must pass to ship.",
+  "checks": [
+    {
+      "id": "S1",
+      "dimension": "teaching_flow",
+      "type": "code",
+      "fn": "sections",
+      "title": "All required sections exist",
+      "params": {
+        "required_headings": [
+          "what is",
+          "why",
+          "how",
+          "example",
+          "words to know",
+          "check yourself"
+        ]
+      }
+    },
+    {
+      "id": "R1",
+      "dimension": "beginner_language",
+      "type": "code",
+      "fn": "readability",
+      "title": "Readable at about Class 8 level (Flesch-Kincaid) with short average sentences",
+      "params": {
+        "max_fk_grade": 8.0,
+        "max_avg_sentence_words": 15
+      }
+    },
+    {
+      "id": "R2",
+      "dimension": "beginner_language",
+      "type": "code",
+      "fn": "long_sentences",
+      "title": "No very long sentences",
+      "params": {
+        "max_sentence_words": 28
+      }
+    },
+    {
+      "id": "R4",
+      "dimension": "beginner_language",
+      "type": "code",
+      "fn": "complex_words",
+      "title": "Few long/rare words (4+ syllables)",
+      "params": {
+        "max_pct": 4.0
+      }
+    },
+    {
+      "id": "R3",
+      "dimension": "coverage",
+      "type": "code",
+      "fn": "length",
+      "title": "Lesson length is learnable in one sitting",
+      "params": {
+        "min_words": 600,
+        "max_words": 1400
+      }
+    },
+    {
+      "id": "J1",
+      "dimension": "clear_jargon",
+      "type": "code",
+      "fn": "jargon",
+      "title": "Listed jargon terms are defined where first used",
+      "params": {
+        "window": 3,
+        "terms": [
+          "LLM",
+          "Large Language Model",
+          "hallucination",
+          "embedding",
+          "vector database",
+          "chunk",
+          "prompt",
+          "knowledge base",
+          "training",
+          "fine-tuning"
+        ]
+      }
+    },
+    {
+      "id": "G1",
+      "dimension": "clear_jargon",
+      "type": "code",
+      "fn": "glossary",
+      "title": "Glossary has at least 6 terms",
+      "params": {
+        "min_terms": 6
+      }
+    },
+    {
+      "id": "Q1",
+      "dimension": "teaching_flow",
+      "type": "code",
+      "fn": "questions",
+      "title": "At least 4 self-check questions",
+      "params": {
+        "min_questions": 4
+      }
+    },
+    {
+      "id": "A1",
+      "dimension": "accurate_grounded",
+      "type": "llm",
+      "title": "No factual errors",
+      "pass_condition": "Every factual statement about RAG is consistent with GROUNDING FACTS. FAIL if any statement contradicts them (for example: says RAG retrains or changes the model's weights, or says RAG removes hallucinations completely)."
+    },
+    {
+      "id": "A2",
+      "dimension": "accurate_grounded",
+      "type": "llm",
+      "title": "No invented specifics",
+      "pass_condition": "No statistics, benchmark numbers, product claims, dates or named studies unless they appear in GROUNDING FACTS. Clearly-labelled made-up example data (fictional college, fictional dates) is allowed."
+    },
+    {
+      "id": "A3",
+      "dimension": "accurate_grounded",
+      "type": "llm",
+      "title": "How-it-works order is correct",
+      "pass_condition": "The how-it-works section shows the correct pipeline: prepare documents (split into chunks, embed, store) -> retrieve -> augment the prompt -> generate the answer."
+    },
+    {
+      "id": "C1",
+      "dimension": "coverage",
+      "type": "llm",
+      "title": "What / Why / How all covered",
+      "pass_condition": "The lesson clearly answers all three: what RAG is, why it matters, how it works - each in its own section."
+    },
+    {
+      "id": "C2",
+      "dimension": "coverage",
+      "type": "llm",
+      "title": "Every MUST_COVER point is present",
+      "pass_condition": "Every item in MUST_COVER (in GROUNDING FACTS) is taught. List any missing item in the reason."
+    },
+    {
+      "id": "L1",
+      "dimension": "clear_jargon",
+      "type": "llm",
+      "title": "Every technical term explained in plain words at first use",
+      "pass_condition": "Every technical term (not only the listed jargon) is explained in simple words the first time it appears. FAIL if any term is used before, or without, an explanation."
+    },
+    {
+      "id": "L2",
+      "dimension": "beginner_language",
+      "type": "llm",
+      "title": "Language suits a non-native English reader",
+      "pass_condition": "Short plain sentences. FAIL on idioms, slang, figurative phrases, Latin abbreviations (e.g., i.e., etc.), unexplained acronyms, or rare/formal words a Class 12 learner from a non-English-medium school would not know."
+    },
+    {
+      "id": "E1",
+      "dimension": "teaches_by_example",
+      "type": "llm",
+      "title": "Worked example follows one question through all steps",
+      "pass_condition": "At least one concrete worked example follows ONE realistic question through every RAG step with the actual text at each step."
+    },
+    {
+      "id": "E2",
+      "dimension": "teaches_by_example",
+      "type": "llm",
+      "title": "Accurate, relatable analogy",
+      "pass_condition": "At least one everyday analogy that does not teach a wrong idea and is relatable to a student in India."
+    },
+    {
+      "id": "F1",
+      "dimension": "teaching_flow",
+      "type": "llm",
+      "title": "Coherent flow",
+      "pass_condition": "Concepts are introduced before they are used; order moves from simple to complex; no section depends on something taught later; lesson ends with recap/self-check."
+    }
+  ]
+}

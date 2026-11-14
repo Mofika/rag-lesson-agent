@@ -1,0 +1,35 @@
+[
+  {
+    "attempt": 1,
+    "passed": false,
+    "n_failed": 1,
+    "failed_checks": [
+      {
+        "id": "L2",
+        "title": "Language suits a non-native English reader",
+        "dimension": "beginner_language",
+        "type": "llm",
+        "reason": "The lesson uses the English idiom 'misses the point', which is unsuitable for a learner with limited English vocabulary.",
+        "evidence": "too little text misses the point, and too much text confuses the model.",
+        "fix": "Replace 'misses the point' with plain language, such as 'leaves out important details'.",
+        "flags": []
+      }
+    ],
+    "changes_made_since_previous_attempt": [],
+    "diff_vs_previous": null
+  },
+  {
+    "attempt": 2,
+    "passed": true,
+    "n_failed": 0,
+    "failed_checks": [],
+    "changes_made_since_previous_attempt": [
+      "Replaced the idiom \"misses the point\" in the \"Where it can go wrong\" section with plain language (\"leaves out important details\") to match the non-native English reader requirement."
+    ],
+    "diff_vs_previous": {
+      "lines_added": 1,
+      "lines_removed": 1,
+      "similarity": 0.99
+    }
+  }
+]
